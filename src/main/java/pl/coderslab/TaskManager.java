@@ -1,15 +1,23 @@
 package pl.coderslab;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class TaskManager {
+    static String[][] tasks;
+    static String pathToTasksFile = "./src/main/resources/tasks.csv";
+
     public static void main(String[] args) {
         boolean isExit = false;
+
+        readTasks();
 
         while (!isExit) {
             showOptions();
             String input = consoleInput("Enter selected option");
-            //System.out.println(input);
+            System.out.println(input);
+
 
             switch (input) {
                 case "exit":
@@ -54,5 +62,19 @@ public class TaskManager {
         System.out.println(message);
         Scanner scan = new Scanner(System.in);
         return scan.nextLine();
+    }
+
+    public static void readTasks() {
+        File tasksFile = new File(pathToTasksFile);
+        try {
+            Scanner fileScan = new Scanner(tasksFile);
+            while (fileScan.hasNextLine()) {
+                System.out.println(fileScan.nextLine());
+            }
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Error: Tasks file do not exists");
+            e.printStackTrace();
+        }
     }
 }
