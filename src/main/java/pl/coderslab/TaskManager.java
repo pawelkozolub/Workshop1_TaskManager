@@ -2,6 +2,7 @@ package pl.coderslab;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class TaskManager {
@@ -65,11 +66,19 @@ public class TaskManager {
     }
 
     public static void readTasks() {
+        tasks = new String[0][0];
         File tasksFile = new File(pathToTasksFile);
+
         try {
             Scanner fileScan = new Scanner(tasksFile);
             while (fileScan.hasNextLine()) {
-                System.out.println(fileScan.nextLine());
+                tasks = Arrays.copyOf(tasks, tasks.length + 1);
+                tasks[tasks.length - 1] = new String[3];
+                String[] lineParts = fileScan.nextLine().split(", ");
+                for (int i = 0; i < tasks[tasks.length - 1].length; i++) {
+                    tasks[tasks.length - 1][i] = lineParts[i];
+                }
+                //System.out.println(Arrays.toString(tasks[tasks.length - 1]));
             }
 
         } catch (FileNotFoundException e) {
