@@ -1,5 +1,8 @@
 package pl.coderslab;
 
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.math.NumberUtils;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
@@ -32,7 +35,7 @@ public class TaskManager {
                     break;
 
                 case "remove":
-                    // to be implemented
+                    removeTask();
                     break;
 
                 case "list":
@@ -93,6 +96,40 @@ public class TaskManager {
                 System.out.print(tasks[i][j] + "  ");
             }
             System.out.print("\n");
+        }
+    }
+
+    public static void removeTask() {
+        boolean quit = false;
+        String taskToRemove;
+
+        while (!quit) {
+            if (tasks.length < 1) {
+                System.out.println("No task to remove, task list is already empty.");
+                quit = true;
+
+            } else {
+                taskToRemove = consoleInput("Please select number to remove task or 'quit' to return to options");
+                if (NumberUtils.isParsable(taskToRemove)) {
+                    int taskNumber = Integer.parseInt(taskToRemove);
+                    try {
+                        tasks = ArrayUtils.remove(tasks, taskNumber);
+                        System.out.println("Task " + taskNumber + " has been removed from list.");
+                        quit = true;
+
+                    } catch (IndexOutOfBoundsException e1) {
+                        System.out.println(ConsoleColors.RED + "Incorrect argument passed." + ConsoleColors.RESET);
+                        System.out.println("Please give a value within 0 and max task number.");
+                    }
+
+                } else if (taskToRemove.equals("quit")) {
+                    quit = true;
+
+                } else {
+                    System.out.println(ConsoleColors.RED + "Incorrect argument passed." + ConsoleColors.RESET);
+                    System.out.println("Please give a numerical value >= 0.");
+                }
+            }
         }
     }
 }
