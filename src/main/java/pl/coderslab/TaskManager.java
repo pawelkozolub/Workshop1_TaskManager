@@ -19,7 +19,6 @@ public class TaskManager {
             String input = consoleInput("Enter selected option");
             System.out.println(input);
 
-
             switch (input) {
                 case "exit":
                     isExit = true;
@@ -37,7 +36,7 @@ public class TaskManager {
                     break;
 
                 case "list":
-                    // to be implemented
+                    listTasks();
                     break;
 
                 default:
@@ -84,6 +83,16 @@ public class TaskManager {
         } catch (FileNotFoundException e) {
             System.out.println("Error: Tasks file do not exists");
             e.printStackTrace();
+        }
+    }
+
+    public static void listTasks() {
+        for (int i = 0; i < tasks.length; i++) {
+            System.out.print(i + " : ");
+            for (int j = 0; j < tasks[i].length; j++) {
+                System.out.print(tasks[i][j] + "  ");
+            }
+            System.out.print("\n");
         }
     }
 }
