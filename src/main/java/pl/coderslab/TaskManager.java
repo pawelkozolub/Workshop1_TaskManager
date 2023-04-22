@@ -5,6 +5,8 @@ import org.apache.commons.lang3.math.NumberUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -25,6 +27,7 @@ public class TaskManager {
             switch (input) {
                 case "exit":
                     isExit = true;
+                    writeTasks();
                     System.out.println(
                             ConsoleColors.RED + "Bye, bye..." + ConsoleColors.RESET
                     );
@@ -145,5 +148,22 @@ public class TaskManager {
         tasks[tasks.length - 1][2] = taskImportance;
 
         System.out.println("\nNew task created.");
+    }
+
+    public static void writeTasks() {
+        try (FileWriter fileWriter = new FileWriter(pathToTasksFile, false)) {
+            for (int i = 0; i < tasks.length; i++) {
+                StringBuilder sb = new StringBuilder();
+                sb.append(tasks[i][0]).append(", ").append(tasks[i][1]).append(", ").append(tasks[i][2]);
+                if (i < tasks.length - 1) {
+                    sb.append("\n");    // newline symbol is not added to last file line
+                }
+                fileWriter.append(sb);
+            }
+            System.out.println("Tasks file written.");
+        } catch (IOException ex) {
+            System.out.println("Error: tasks not saved into file.");
+            ex.printStackTrace();
+        }
     }
 }
