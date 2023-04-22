@@ -31,7 +31,7 @@ public class TaskManager {
                     break;
 
                 case "add":
-                    // to be implemented
+                    addTask();
                     break;
 
                 case "remove":
@@ -131,5 +131,19 @@ public class TaskManager {
                 }
             }
         }
+    }
+
+    public static void addTask() {
+        String taskName = consoleInput("Please add task description:");
+        String taskDate = consoleInput("Please add task due date:");
+        String taskImportance = consoleInput("Is your task important: true/false");
+
+        tasks = Arrays.copyOf(tasks, tasks.length + 1);
+        tasks[tasks.length - 1] = new String[3];
+        tasks[tasks.length - 1][0] = taskName;
+        tasks[tasks.length - 1][1] = taskDate;
+        tasks[tasks.length - 1][2] = taskImportance;
+
+        System.out.println("\nNew task created.");
     }
 }
