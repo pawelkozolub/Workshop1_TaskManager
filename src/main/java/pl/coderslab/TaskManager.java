@@ -28,9 +28,7 @@ public class TaskManager {
                 case "exit":
                     isExit = true;
                     writeTasks();
-                    System.out.println(
-                            ConsoleColors.RED + "Bye, bye..." + ConsoleColors.RESET
-                    );
+                    exitStatement();
                     break;
 
                 case "add":
@@ -165,5 +163,9 @@ public class TaskManager {
             System.out.println("Error: tasks not saved into file.");
             ex.printStackTrace();
         }
+    }
+
+    public static void exitStatement() {
+        System.out.println(ConsoleColors.RED + "Bye, bye..." + ConsoleColors.RESET);
     }
 }
