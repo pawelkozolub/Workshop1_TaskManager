@@ -44,9 +44,7 @@ public class TaskManager {
                     break;
 
                 default:
-                    System.out.println(
-                            ConsoleColors.RED + "Please select a correct option" + ConsoleColors.RESET
-                    );
+                    defaultStatement();
             }
         }
 
@@ -167,5 +165,9 @@ public class TaskManager {
 
     public static void exitStatement() {
         System.out.println(ConsoleColors.RED + "Bye, bye..." + ConsoleColors.RESET);
+    }
+
+    public static void defaultStatement() {
+        System.out.println(ConsoleColors.RED + "Please select a correct option" + ConsoleColors.RESET);
     }
 }
